@@ -28,8 +28,8 @@ void initRam() {
 }
 
 void initbss() {
-    uint32_t i;
- /*    for(i = _bss_start_; i<_bss_end_; i++)
+     /*uint32_t i;
+    for(i = _bss_start_; i<_bss_end_; i++)
     {
         
     } */

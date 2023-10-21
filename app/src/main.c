@@ -16,7 +16,7 @@ void delay(int dlyCnt) {
   for(uint32_t i=dlyCnt; i>0;i--);
 }
 
-void main(void)
+int main(void)
 {
   //initClk();
   PTE->PDDR = GPIO_PDDR_PDD(0x40);
@@ -27,5 +27,5 @@ void main(void)
     delay(1000);
     // Never returns from this loop 
   }
-
+  return 0;
 }

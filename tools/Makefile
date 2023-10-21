@@ -26,7 +26,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 #Compiler and Linker flags
 
 CFLAGS = -c -mthumb -mcpu=cortex-m4 -Wall -std=gnu11 $(addprefix -I ,$(INC_DIR))
-LDFLAGS = -T S32K144_64_flash.ld -Wl,-Map=S32_App.map -nostdlib -mcpu=cortex-m4 -Wall -Werror -Wshadow $(addprefix -L ,$(CC_LIB))
+LDFLAGS = -T S32K144_64_flash.ld -Wl,-Map=$(BIN_DIR)/S32_App.map -nostdlib -mcpu=cortex-m4 -Wall -Werror -Wshadow $(addprefix -L ,$(CC_LIB))
 
 #Target name with path
 TARGET = $(ROOT)/build/bin/$(PROJECT).elf
