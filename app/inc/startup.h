@@ -1,3 +1,5 @@
+#include "common.h"
+
 extern uint32_t _intvec_start_;
 extern uint32_t _intvec_end_;
 extern uint32_t _bss_start_;

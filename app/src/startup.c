@@ -11,7 +11,6 @@
 #include "main.h"
 #include "interrupt.h"
 #include "startup.h"
-#include "common.h"
 
 void Reset_Handler() {
     initRam();
@@ -30,8 +29,8 @@ void initRam() {
 
 void initbss() {
     uint32_t i;
-    for(i = _bss_start_; i<_bss_end_; i++)
+ /*    for(i = _bss_start_; i<_bss_end_; i++)
     {
         
-    }
+    } */
 }
