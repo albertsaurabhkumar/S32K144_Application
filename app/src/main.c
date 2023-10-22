@@ -8,23 +8,34 @@
 #include "main.h"
 #include "clock.h"
 #include "common.h"
-#include <stdint.h>
 
-volatile uint32_t a=10;
-
-void delay(int dlyCnt) {
-  for(uint32_t i=dlyCnt; i>0;i--);
+// volatile uint32_t a=10;
+void WDOG_disable (void){
+ WDOG->CNT=0xD928C520; /*Unlock watchdog*/
+ WDOG->TOVAL=0x0000FFFF; /*Maximum timeout value*/
+ WDOG->CS = 0x00002100; /*Disable watchdog*/
 }
 
-int main(void)
-{
-  //initClk();
-  PTE->PDDR = GPIO_PDDR_PDD(0x40);
+void delay(volatile uint32_t dlyCnt) {
+  while(dlyCnt>0){
+    dlyCnt--;
+  }
+}
+
+int main(void) {
+ initClk();
+ WDOG_disable();
+ PORTA->PCR[6] = 0x00000100;
+ PORTA->PCR[11] = 0x00000100;
+ PORTB->PCR[4] = 0x00000100;
+
+  PTA->PDDR = GPIO_PDDR_PDD(0x840);
+  PTB->PDDR = GPIO_PDDR_PDD(0x10);
 
   while(1)
   {
-    PTE->PTOR = GPIO_PTOR_PTTO(0x40);
-    delay(1000);
+    PTB->PTOR = GPIO_PTOR_PTTO(0x10);
+    delay(720000);
     // Never returns from this loop 
   }
   return 0;

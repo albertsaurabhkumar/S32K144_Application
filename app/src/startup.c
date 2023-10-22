@@ -13,24 +13,27 @@
 #include "startup.h"
 
 void Reset_Handler() {
-    initRam();
-    initbss();
+    // initData();
+    // initbss();
     main();
     /* Never returns back to here */
 }
 
-void initRam() {
-    uint32_t i;
-    for(i=10;i<20;i++)
-    {
+void initData() {
+// _etext;
+// _sdata_ram;
+// _edata_ram;
+    // uint32_t i;
+    // for(i= (uint32_t) _sdata_ram;i< (uint32_t) _edata_ram;i++)
+    // {
 
-    }
+    // }
 }
 
 void initbss() {
-     /*uint32_t i;
-    for(i = _bss_start_; i<_bss_end_; i++)
-    {
+    // uint32_t i;
+    // for(i = _bss_start_; i<_bss_end_; i++)
+    // {
         
-    } */
+    // }
 }

@@ -141,7 +141,7 @@ void FTM3_Ovf_Reload_IRQHandler(void) __attribute__ ((weak, alias("DefaultHandle
 void DefaultISR(void) __attribute__ ((weak, alias("DefaultHandler")));  
 
 uint32_t vectorTable[] __attribute__ ((section (".intvec"))) = {
-     (uint32_t) 0,                                       /* Top of Stack */
+     (uint32_t) 0x20007000,                                           /* Top of Stack */
      (uint32_t) Reset_Handler,                                        /* Reset Handler */
      (uint32_t) NMI_Handler,                                          /* NMI Handler*/
      (uint32_t) HardFault_Handler,                                    /* Hard Fault Handler*/
