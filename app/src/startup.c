@@ -12,9 +12,9 @@
 #include "interrupt.h"
 #include "startup.h"
 
-void Reset_Handler() {
-    // initData();
-    // initbss();
+void Reset_Handler(){
+    initData();
+    initbss();
     main();
     /* Never returns back to here */
 }

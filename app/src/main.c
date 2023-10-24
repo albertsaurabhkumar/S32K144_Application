@@ -7,34 +7,43 @@
 */
 #include "main.h"
 #include "clock.h"
+#include "gpio.h"
 #include "common.h"
 
-// volatile uint32_t a=10;
-void WDOG_disable (void){
+volatile uint32_t dlyCnt;
+volatile uint32_t counter;
+//volatile uint32_t a=10;
+void WDOG_disable (void) {
  WDOG->CNT=0xD928C520; /*Unlock watchdog*/
  WDOG->TOVAL=0x0000FFFF; /*Maximum timeout value*/
  WDOG->CS = 0x00002100; /*Disable watchdog*/
 }
 
-void delay(volatile uint32_t dlyCnt) {
-  while(dlyCnt>0){
-    dlyCnt--;
+void delay(uint32_t a) {
+  while(a>0){
+    a--;
+    dlyCnt=a;
   }
 }
 
 int main(void) {
  initClk();
  WDOG_disable();
- PORTA->PCR[6] = 0x00000100;
- PORTA->PCR[11] = 0x00000100;
- PORTB->PCR[4] = 0x00000100;
+ PORTA->PCR[6] = PORT_PCR_MUX(1);
+ PORTA->PCR[11] = PORT_PCR_MUX(1);
+ PORTB->PCR[4] = PORT_PCR_MUX(1);
 
-  PTA->PDDR = GPIO_PDDR_PDD(0x840);
-  PTB->PDDR = GPIO_PDDR_PDD(0x10);
+  DataDirectionGPIO(PTB,PIN4);
+  DataDirectionGPIO(PTA,PIN6);
+  DataDirectionGPIO(PTA,PIN11);
 
   while(1)
   {
-    PTB->PTOR = GPIO_PTOR_PTTO(0x10);
+    ToggleGPIO(PTB,PIN4);
+    delay(720000);
+    ToggleGPIO(PTA,PIN6);
+    delay(720000);
+    ToggleGPIO(PTA,PIN11);
     delay(720000);
     // Never returns from this loop 
   }
