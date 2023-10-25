@@ -7,7 +7,7 @@
 */
 #include "main.h"
 #include "clock.h"
-#include "gpio.h"
+#include "port.h"
 #include "common.h"
 
 volatile uint32_t dlyCnt;
@@ -27,11 +27,12 @@ void delay(uint32_t a) {
 }
 
 int main(void) {
- initClk();
- WDOG_disable();
- PORTA->PCR[6] = PORT_PCR_MUX(1);
- PORTA->PCR[11] = PORT_PCR_MUX(1);
- PORTB->PCR[4] = PORT_PCR_MUX(1);
+  initClk();
+  WDOG_disable();
+  
+  PortPCR(PORTB,PIN4);
+  PortPCR(PORTA,PIN6);
+  PortPCR(PORTA,PIN11);
 
   DataDirectionGPIO(PTB,PIN4);
   DataDirectionGPIO(PTA,PIN6);
@@ -39,10 +40,12 @@ int main(void) {
 
   while(1)
   {
-    ToggleGPIO(PTB,PIN4);
-    delay(720000);
     ToggleGPIO(PTA,PIN6);
     delay(720000);
+
+    ToggleGPIO(PTB,PIN4);
+    delay(720000);
+
     ToggleGPIO(PTA,PIN11);
     delay(720000);
     // Never returns from this loop 

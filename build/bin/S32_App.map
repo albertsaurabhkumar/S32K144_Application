@@ -132,7 +132,7 @@ LOAD ../build/obj/clock.o
  *(.flashConfig)
                 0x00000400                . = ALIGN (0x4)
 
-.text           0x00000410      0x1f8
+.text           0x00000410      0x20c
                 0x00000410                _stext = .
  *(.text)
  .text          0x00000410       0x2c ../build/obj/startup.o
@@ -145,176 +145,175 @@ LOAD ../build/obj/clock.o
                 0x00000494                main
  .text          0x00000510       0x22 ../build/obj/port.o
                 0x00000510                PortPCR
- .text          0x00000532       0xaa ../build/obj/gpio.o
+ .text          0x00000532       0xc0 ../build/obj/gpio.o
                 0x00000532                ToggleGPIO
-                0x00000556                SetGPIO
-                0x0000057a                ClearGPIO
-                0x0000059e                DataDirectionGPIO
-                0x000005c2                DataOutGPIO
- .text          0x000005dc        0x6 ../build/obj/interrupt.o
-                0x000005dc                Reserved54_IRQHandler
-                0x000005dc                DebugMon_Handler
-                0x000005dc                Reserved88_IRQHandler
-                0x000005dc                CAN0_ORed_IRQHandler
-                0x000005dc                HardFault_Handler
-                0x000005dc                Reserved86_IRQHandler
-                0x000005dc                Reserved103_IRQHandler
-                0x000005dc                SysTick_Handler
-                0x000005dc                FTM2_Ovf_Reload_IRQHandler
-                0x000005dc                Reserved50_IRQHandler
-                0x000005dc                FTFC_Fault_IRQHandler
-                0x000005dc                FTM0_Ch6_Ch7_IRQHandler
-                0x000005dc                PendSV_Handler
-                0x000005dc                Reserved114_IRQHandler
-                0x000005dc                NMI_Handler
-                0x000005dc                Reserved89_IRQHandler
-                0x000005dc                ERM_double_fault_IRQHandler
-                0x000005dc                DMA2_IRQHandler
-                0x000005dc                Reserved59_IRQHandler
-                0x000005dc                LPIT0_Ch0_IRQHandler
-                0x000005dc                Reserved99_IRQHandler
-                0x000005dc                FTM3_Ch6_Ch7_IRQHandler
-                0x000005dc                CAN2_ORed_0_15_MB_IRQHandler
-                0x000005dc                LPIT0_Ch3_IRQHandler
-                0x000005dc                Reserved92_IRQHandler
-                0x000005dc                FTM0_Ch4_Ch5_IRQHandler
-                0x000005dc                CAN1_Error_IRQHandler
-                0x000005dc                FTM3_Ch0_Ch1_IRQHandler
-                0x000005dc                SWI_IRQHandler
-                0x000005dc                ADC0_IRQHandler
-                0x000005dc                FTM2_Ch4_Ch5_IRQHandler
-                0x000005dc                UsageFault_Handler
-                0x000005dc                FTM0_Ovf_Reload_IRQHandler
-                0x000005dc                DefaultISR
-                0x000005dc                DMA9_IRQHandler
-                0x000005dc                Reserved58_IRQHandler
-                0x000005dc                CAN1_ORed_0_15_MB_IRQHandler
-                0x000005dc                FTM1_Ch2_Ch3_IRQHandler
-                0x000005dc                DMA14_IRQHandler
-                0x000005dc                Reserved82_IRQHandler
-                0x000005dc                CAN0_ORed_16_31_MB_IRQHandler
-                0x000005dc                LPI2C0_Slave_IRQHandler
-                0x000005dc                Reserved71_IRQHandler
-                0x000005dc                PORTD_IRQHandler
-                0x000005dc                Reserved69_IRQHandler
-                0x000005dc                PORTB_IRQHandler
-                0x000005dc                Reserved70_IRQHandler
-                0x000005dc                ADC1_IRQHandler
-                0x000005dc                FTM2_Ch2_Ch3_IRQHandler
-                0x000005dc                DefaultHandler
-                0x000005dc                Reserved53_IRQHandler
-                0x000005dc                DMA5_IRQHandler
-                0x000005dc                RTC_IRQHandler
-                0x000005dc                PDB0_IRQHandler
-                0x000005dc                FTM2_Ch6_Ch7_IRQHandler
-                0x000005dc                FTM3_Ch2_Ch3_IRQHandler
-                0x000005dc                FTM2_Ch0_Ch1_IRQHandler
-                0x000005dc                LPSPI1_IRQHandler
-                0x000005dc                LPUART1_RxTx_IRQHandler
-                0x000005dc                RTC_Seconds_IRQHandler
-                0x000005dc                CAN2_ORed_IRQHandler
-                0x000005dc                Reserved72_IRQHandler
-                0x000005dc                Reserved110_IRQHandler
-                0x000005dc                DMA11_IRQHandler
-                0x000005dc                Reserved107_IRQHandler
-                0x000005dc                Read_Collision_IRQHandler
-                0x000005dc                CAN2_Error_IRQHandler
-                0x000005dc                FTFC_IRQHandler
-                0x000005dc                DMA7_IRQHandler
-                0x000005dc                FTM1_Ch6_Ch7_IRQHandler
-                0x000005dc                Reserved105_IRQHandler
-                0x000005dc                LPIT0_Ch1_IRQHandler
-                0x000005dc                FTM1_Ch4_Ch5_IRQHandler
-                0x000005dc                FTM3_Ovf_Reload_IRQHandler
-                0x000005dc                LPUART2_RxTx_IRQHandler
-                0x000005dc                LPSPI0_IRQHandler
-                0x000005dc                WDOG_EWM_IRQHandler
-                0x000005dc                MemManage_Handler
-                0x000005dc                Reserved90_IRQHandler
-                0x000005dc                Reserved83_IRQHandler
-                0x000005dc                FTM0_Fault_IRQHandler
-                0x000005dc                Reserved48_IRQHandler
-                0x000005dc                SVC_Handler
-                0x000005dc                ERM_single_fault_IRQHandler
-                0x000005dc                FTM2_Fault_IRQHandler
-                0x000005dc                FTM0_Ch2_Ch3_IRQHandler
-                0x000005dc                DMA13_IRQHandler
-                0x000005dc                FTM0_Ch0_Ch1_IRQHandler
-                0x000005dc                FTM3_Fault_IRQHandler
-                0x000005dc                RCM_IRQHandler
-                0x000005dc                DMA3_IRQHandler
-                0x000005dc                Reserved100_IRQHandler
-                0x000005dc                DMA0_IRQHandler
-                0x000005dc                Reserved91_IRQHandler
-                0x000005dc                CAN1_ORed_IRQHandler
-                0x000005dc                DMA15_IRQHandler
-                0x000005dc                SCG_IRQHandler
-                0x000005dc                PDB1_IRQHandler
-                0x000005dc                Reserved81_IRQHandler
-                0x000005dc                Reserved46_IRQHandler
-                0x000005dc                Reserved45_IRQHandler
-                0x000005dc                CAN0_Error_IRQHandler
-                0x000005dc                Reserved112_IRQHandler
-                0x000005dc                LPI2C0_Master_IRQHandler
-                0x000005dc                DMA4_IRQHandler
-                0x000005dc                FTM1_Fault_IRQHandler
-                0x000005dc                Reserved106_IRQHandler
-                0x000005dc                DMA_Error_IRQHandler
-                0x000005dc                LVD_LVW_IRQHandler
-                0x000005dc                LPIT0_Ch2_IRQHandler
-                0x000005dc                PORTA_IRQHandler
-                0x000005dc                MCM_IRQHandler
-                0x000005dc                LPSPI2_IRQHandler
-                0x000005dc                DMA12_IRQHandler
-                0x000005dc                FTM3_Ch4_Ch5_IRQHandler
-                0x000005dc                CAN0_ORed_0_15_MB_IRQHandler
-                0x000005dc                LPUART0_RxTx_IRQHandler
-                0x000005dc                PORTE_IRQHandler
-                0x000005dc                LPTMR0_IRQHandler
-                0x000005dc                BusFault_Handler
-                0x000005dc                Reserved87_IRQHandler
-                0x000005dc                FTM1_Ovf_Reload_IRQHandler
-                0x000005dc                DMA8_IRQHandler
-                0x000005dc                Reserved93_IRQHandler
-                0x000005dc                DMA10_IRQHandler
-                0x000005dc                CAN0_Wake_Up_IRQHandler
-                0x000005dc                CMP0_IRQHandler
-                0x000005dc                Reserved52_IRQHandler
-                0x000005dc                PORTC_IRQHandler
-                0x000005dc                DMA6_IRQHandler
-                0x000005dc                FTM1_Ch0_Ch1_IRQHandler
-                0x000005dc                FLEXIO_IRQHandler
-                0x000005dc                DMA1_IRQHandler
-                0x000005dc                Reserved113_IRQHandler
- *fill*         0x000005e2        0x2 
- .text          0x000005e4       0x24 ../build/obj/clock.o
-                0x000005e4                initClk
+                0x0000055a                SetGPIO
+                0x00000582                ClearGPIO
+                0x000005aa                DataDirectionGPIO
+                0x000005d2                DataOutGPIO
+ .text          0x000005f2        0x6 ../build/obj/interrupt.o
+                0x000005f2                Reserved54_IRQHandler
+                0x000005f2                DebugMon_Handler
+                0x000005f2                Reserved88_IRQHandler
+                0x000005f2                CAN0_ORed_IRQHandler
+                0x000005f2                HardFault_Handler
+                0x000005f2                Reserved86_IRQHandler
+                0x000005f2                Reserved103_IRQHandler
+                0x000005f2                SysTick_Handler
+                0x000005f2                FTM2_Ovf_Reload_IRQHandler
+                0x000005f2                Reserved50_IRQHandler
+                0x000005f2                FTFC_Fault_IRQHandler
+                0x000005f2                FTM0_Ch6_Ch7_IRQHandler
+                0x000005f2                PendSV_Handler
+                0x000005f2                Reserved114_IRQHandler
+                0x000005f2                NMI_Handler
+                0x000005f2                Reserved89_IRQHandler
+                0x000005f2                ERM_double_fault_IRQHandler
+                0x000005f2                DMA2_IRQHandler
+                0x000005f2                Reserved59_IRQHandler
+                0x000005f2                LPIT0_Ch0_IRQHandler
+                0x000005f2                Reserved99_IRQHandler
+                0x000005f2                FTM3_Ch6_Ch7_IRQHandler
+                0x000005f2                CAN2_ORed_0_15_MB_IRQHandler
+                0x000005f2                LPIT0_Ch3_IRQHandler
+                0x000005f2                Reserved92_IRQHandler
+                0x000005f2                FTM0_Ch4_Ch5_IRQHandler
+                0x000005f2                CAN1_Error_IRQHandler
+                0x000005f2                FTM3_Ch0_Ch1_IRQHandler
+                0x000005f2                SWI_IRQHandler
+                0x000005f2                ADC0_IRQHandler
+                0x000005f2                FTM2_Ch4_Ch5_IRQHandler
+                0x000005f2                UsageFault_Handler
+                0x000005f2                FTM0_Ovf_Reload_IRQHandler
+                0x000005f2                DefaultISR
+                0x000005f2                DMA9_IRQHandler
+                0x000005f2                Reserved58_IRQHandler
+                0x000005f2                CAN1_ORed_0_15_MB_IRQHandler
+                0x000005f2                FTM1_Ch2_Ch3_IRQHandler
+                0x000005f2                DMA14_IRQHandler
+                0x000005f2                Reserved82_IRQHandler
+                0x000005f2                CAN0_ORed_16_31_MB_IRQHandler
+                0x000005f2                LPI2C0_Slave_IRQHandler
+                0x000005f2                Reserved71_IRQHandler
+                0x000005f2                PORTD_IRQHandler
+                0x000005f2                Reserved69_IRQHandler
+                0x000005f2                PORTB_IRQHandler
+                0x000005f2                Reserved70_IRQHandler
+                0x000005f2                ADC1_IRQHandler
+                0x000005f2                FTM2_Ch2_Ch3_IRQHandler
+                0x000005f2                DefaultHandler
+                0x000005f2                Reserved53_IRQHandler
+                0x000005f2                DMA5_IRQHandler
+                0x000005f2                RTC_IRQHandler
+                0x000005f2                PDB0_IRQHandler
+                0x000005f2                FTM2_Ch6_Ch7_IRQHandler
+                0x000005f2                FTM3_Ch2_Ch3_IRQHandler
+                0x000005f2                FTM2_Ch0_Ch1_IRQHandler
+                0x000005f2                LPSPI1_IRQHandler
+                0x000005f2                LPUART1_RxTx_IRQHandler
+                0x000005f2                RTC_Seconds_IRQHandler
+                0x000005f2                CAN2_ORed_IRQHandler
+                0x000005f2                Reserved72_IRQHandler
+                0x000005f2                Reserved110_IRQHandler
+                0x000005f2                DMA11_IRQHandler
+                0x000005f2                Reserved107_IRQHandler
+                0x000005f2                Read_Collision_IRQHandler
+                0x000005f2                CAN2_Error_IRQHandler
+                0x000005f2                FTFC_IRQHandler
+                0x000005f2                DMA7_IRQHandler
+                0x000005f2                FTM1_Ch6_Ch7_IRQHandler
+                0x000005f2                Reserved105_IRQHandler
+                0x000005f2                LPIT0_Ch1_IRQHandler
+                0x000005f2                FTM1_Ch4_Ch5_IRQHandler
+                0x000005f2                FTM3_Ovf_Reload_IRQHandler
+                0x000005f2                LPUART2_RxTx_IRQHandler
+                0x000005f2                LPSPI0_IRQHandler
+                0x000005f2                WDOG_EWM_IRQHandler
+                0x000005f2                MemManage_Handler
+                0x000005f2                Reserved90_IRQHandler
+                0x000005f2                Reserved83_IRQHandler
+                0x000005f2                FTM0_Fault_IRQHandler
+                0x000005f2                Reserved48_IRQHandler
+                0x000005f2                SVC_Handler
+                0x000005f2                ERM_single_fault_IRQHandler
+                0x000005f2                FTM2_Fault_IRQHandler
+                0x000005f2                FTM0_Ch2_Ch3_IRQHandler
+                0x000005f2                DMA13_IRQHandler
+                0x000005f2                FTM0_Ch0_Ch1_IRQHandler
+                0x000005f2                FTM3_Fault_IRQHandler
+                0x000005f2                RCM_IRQHandler
+                0x000005f2                DMA3_IRQHandler
+                0x000005f2                Reserved100_IRQHandler
+                0x000005f2                DMA0_IRQHandler
+                0x000005f2                Reserved91_IRQHandler
+                0x000005f2                CAN1_ORed_IRQHandler
+                0x000005f2                DMA15_IRQHandler
+                0x000005f2                SCG_IRQHandler
+                0x000005f2                PDB1_IRQHandler
+                0x000005f2                Reserved81_IRQHandler
+                0x000005f2                Reserved46_IRQHandler
+                0x000005f2                Reserved45_IRQHandler
+                0x000005f2                CAN0_Error_IRQHandler
+                0x000005f2                Reserved112_IRQHandler
+                0x000005f2                LPI2C0_Master_IRQHandler
+                0x000005f2                DMA4_IRQHandler
+                0x000005f2                FTM1_Fault_IRQHandler
+                0x000005f2                Reserved106_IRQHandler
+                0x000005f2                DMA_Error_IRQHandler
+                0x000005f2                LVD_LVW_IRQHandler
+                0x000005f2                LPIT0_Ch2_IRQHandler
+                0x000005f2                PORTA_IRQHandler
+                0x000005f2                MCM_IRQHandler
+                0x000005f2                LPSPI2_IRQHandler
+                0x000005f2                DMA12_IRQHandler
+                0x000005f2                FTM3_Ch4_Ch5_IRQHandler
+                0x000005f2                CAN0_ORed_0_15_MB_IRQHandler
+                0x000005f2                LPUART0_RxTx_IRQHandler
+                0x000005f2                PORTE_IRQHandler
+                0x000005f2                LPTMR0_IRQHandler
+                0x000005f2                BusFault_Handler
+                0x000005f2                Reserved87_IRQHandler
+                0x000005f2                FTM1_Ovf_Reload_IRQHandler
+                0x000005f2                DMA8_IRQHandler
+                0x000005f2                Reserved93_IRQHandler
+                0x000005f2                DMA10_IRQHandler
+                0x000005f2                CAN0_Wake_Up_IRQHandler
+                0x000005f2                CMP0_IRQHandler
+                0x000005f2                Reserved52_IRQHandler
+                0x000005f2                PORTC_IRQHandler
+                0x000005f2                DMA6_IRQHandler
+                0x000005f2                FTM1_Ch0_Ch1_IRQHandler
+                0x000005f2                FLEXIO_IRQHandler
+                0x000005f2                DMA1_IRQHandler
+                0x000005f2                Reserved113_IRQHandler
+ .text          0x000005f8       0x24 ../build/obj/clock.o
+                0x000005f8                initClk
  *(.text*)
  *(.rodata)
  *(.rodata*)
  *(.glue_7)
- .glue_7        0x00000608        0x0 linker stubs
+ .glue_7        0x0000061c        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x00000608        0x0 linker stubs
+ .glue_7t       0x0000061c        0x0 linker stubs
  *(.eh_frame)
  *(.init)
  *(.fini)
-                0x00000608                . = ALIGN (0x4)
-                0x00000608                _etext = .
+                0x0000061c                . = ALIGN (0x4)
+                0x0000061c                _etext = .
 
-.vfp11_veneer   0x00000608        0x0
- .vfp11_veneer  0x00000608        0x0 linker stubs
+.vfp11_veneer   0x0000061c        0x0
+ .vfp11_veneer  0x0000061c        0x0 linker stubs
 
-.v4_bx          0x00000608        0x0
- .v4_bx         0x00000608        0x0 linker stubs
+.v4_bx          0x0000061c        0x0
+ .v4_bx         0x0000061c        0x0 linker stubs
 
-.iplt           0x00000608        0x0
- .iplt          0x00000608        0x0 ../build/obj/startup.o
+.iplt           0x0000061c        0x0
+ .iplt          0x0000061c        0x0 ../build/obj/startup.o
 
-.rel.dyn        0x00000608        0x0
- .rel.iplt      0x00000608        0x0 ../build/obj/startup.o
+.rel.dyn        0x0000061c        0x0
+ .rel.iplt      0x0000061c        0x0 ../build/obj/startup.o
 
-.data           0x1fff8000        0x0 load address 0x00000608
+.data           0x1fff8000        0x0 load address 0x0000061c
                 0x1fff8000                _sdata_ram = .
  *(.data)
  .data          0x1fff8000        0x0 ../build/obj/startup.o
@@ -326,10 +325,10 @@ LOAD ../build/obj/clock.o
                 0x1fff8000                . = ALIGN (0x4)
                 0x1fff8000                _edata_ram = .
 
-.igot.plt       0x1fff8000        0x0 load address 0x00000608
+.igot.plt       0x1fff8000        0x0 load address 0x0000061c
  .igot.plt      0x1fff8000        0x0 ../build/obj/startup.o
 
-.bss            0x1fff8000        0x8 load address 0x00000608
+.bss            0x1fff8000        0x8 load address 0x0000061c
                 0x1fff8000                _bss_start_ = .
  *(.bss)
  .bss           0x1fff8000        0x0 ../build/obj/startup.o
@@ -378,7 +377,7 @@ LOAD linker stubs
  .debug_aranges
                 0x000000a0       0x20 ../build/obj/clock.o
 
-.debug_macro    0x00000000     0xf13f
+.debug_macro    0x00000000     0xf14d
  .debug_macro   0x00000000       0x7e ../build/obj/startup.o
  .debug_macro   0x0000007e      0xa5a ../build/obj/startup.o
  .debug_macro   0x00000ad8       0x19 ../build/obj/startup.o
@@ -389,26 +388,26 @@ LOAD linker stubs
  .debug_macro   0x00000cf5       0x6a ../build/obj/startup.o
  .debug_macro   0x00000d5f      0x1df ../build/obj/startup.o
  .debug_macro   0x00000f3e     0xdf8d ../build/obj/startup.o
- .debug_macro   0x0000eecb       0x88 ../build/obj/main.o
- .debug_macro   0x0000ef53       0x84 ../build/obj/port.o
- .debug_macro   0x0000efd7       0x76 ../build/obj/gpio.o
- .debug_macro   0x0000f04d       0x76 ../build/obj/interrupt.o
- .debug_macro   0x0000f0c3       0x7c ../build/obj/clock.o
+ .debug_macro   0x0000eecb       0x96 ../build/obj/main.o
+ .debug_macro   0x0000ef61       0x84 ../build/obj/port.o
+ .debug_macro   0x0000efe5       0x76 ../build/obj/gpio.o
+ .debug_macro   0x0000f05b       0x76 ../build/obj/interrupt.o
+ .debug_macro   0x0000f0d1       0x7c ../build/obj/clock.o
 
-.debug_line     0x00000000      0xbbb
+.debug_line     0x00000000      0xbc2
  .debug_line    0x00000000      0x1fb ../build/obj/startup.o
- .debug_line    0x000001fb      0x245 ../build/obj/main.o
- .debug_line    0x00000440      0x1d7 ../build/obj/port.o
- .debug_line    0x00000617      0x1fa ../build/obj/gpio.o
- .debug_line    0x00000811      0x1d3 ../build/obj/interrupt.o
- .debug_line    0x000009e4      0x1d7 ../build/obj/clock.o
+ .debug_line    0x000001fb      0x240 ../build/obj/main.o
+ .debug_line    0x0000043b      0x1d7 ../build/obj/port.o
+ .debug_line    0x00000612      0x206 ../build/obj/gpio.o
+ .debug_line    0x00000818      0x1d3 ../build/obj/interrupt.o
+ .debug_line    0x000009eb      0x1d7 ../build/obj/clock.o
 
 .debug_str      0x00000000    0x5d8d8
  .debug_str     0x00000000    0x5d667 ../build/obj/startup.o
                               0x5d7c2 (size before relaxing)
- .debug_str     0x0005d667      0x18c ../build/obj/main.o
-                              0x5d92b (size before relaxing)
- .debug_str     0x0005d7f3       0x34 ../build/obj/port.o
+ .debug_str     0x0005d667      0x194 ../build/obj/main.o
+                              0x5d933 (size before relaxing)
+ .debug_str     0x0005d7fb       0x2c ../build/obj/port.o
                               0x5d8de (size before relaxing)
  .debug_str     0x0005d827       0x56 ../build/obj/gpio.o
                               0x5d8e9 (size before relaxing)

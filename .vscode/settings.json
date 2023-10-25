@@ -20,7 +20,10 @@
         "ranges": "c",
         "functional": "c",
         "regex": "c",
-        "port.h": "c"
+        "port.h": "c",
+        "clock.h": "c",
+        "main.h": "c",
+        "gpio.h": "c"
     },
     "cortex-debug.liveWatchRefreshRate": 250,
     "cortex-debug.JLinkGDBServerPath.windows": "C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe",
