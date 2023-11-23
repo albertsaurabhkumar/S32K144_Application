@@ -11,9 +11,7 @@ ENTRY(Reset_Handler)
 
 MEMORY
 {
-    FLASH1(rx): ORIGIN = 0X00000000, LENGTH = 0X00000400
-    FLASH_CONFIG(rx): ORIGIN = 0x00000400, LENGTH = 0x00000010
-    FLASH2(rx): ORIGIN = 0x00000410, LENGTH = 0x0007FBF0
+    FLASH(rx): ORIGIN = 0X00014000, LENGTH = 0X0007FBF0 /*432 KB of Pflash available for the application and 80KB assigned to bootloader*/
     SRAM1(rwx): ORIGIN = 0x1FFF8000, LENGTH = 0x00008000
     SRAM2(rwx): ORIGIN = 0x20000000, LENGTH = 0x00007000
 }
@@ -26,13 +24,7 @@ SECTIONS
     *(.intvec)
     . = ALIGN(4);
     _intvec_end_ = .;
-    } > FLASH1
-
-    .flashConfig :
-    {
-    KEEP(*(.flashConfig))
-    . = ALIGN(4);
-    } > FLASH1
+    } > FLASH
 
     .text :
     {
@@ -48,7 +40,7 @@ SECTIONS
     KEEP (*(.fini))
     . = ALIGN(4);
     _etext = .;
-    } > FLASH2
+    } > FLASH
 
     .data :
     {
@@ -56,7 +48,7 @@ SECTIONS
     *(.data)
     . = ALIGN(4);
     _edata_ram = .;
-    }> SRAM1 AT> FLASH2
+    }> SRAM1 AT> FLASH
 
     .bss :
     {
@@ -67,5 +59,5 @@ SECTIONS
     *(.common*)
     . = ALIGN(4);
     _bss_end_ = .;
-    }> SRAM1 AT> FLASH2
+    }> SRAM1 AT> FLASH
 }

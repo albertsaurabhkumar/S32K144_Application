@@ -21,6 +21,9 @@ CC_LIB = $(CC_DIR)/lib
 
 #Compilar Path
 CC = $(CC_BIN)/arm-none-eabi-gcc
+OBJSIZE = $(CC_BIN)/arm-none-eabi-size
+OBJDUMP = $(CC_BIN)/arm-none-eabi-objdump
+OBJCOPY = $(CC_BIN)/arm-none-eabi-objcopy
 
 #Project Name
 PROJECT = S32_App
@@ -31,22 +34,25 @@ OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 #Compiler and Linker flags
 
-CFLAGS = -c -mthumb -g3 -mcpu=cortex-m4 -Wall -std=gnu11 $(addprefix -I ,$(INC_DIR)) -ggdb
-LDFLAGS = -T S32_App.ld -g3 -ggdb -Wl,-Map=$(BIN_DIR)/S32_App.map -nostdlib -mcpu=cortex-m4 -Wall -Werror -Wshadow $(addprefix -L ,$(CC_LIB))
-
+CFLAGS = -c -mthumb -mcpu=cortex-m4 -Wall -std=gnu11 $(addprefix -I ,$(INC_DIR))
+LDFLAGS = -T S32_App.ld -Wl,-Map=$(BIN_DIR)/S32_App.map -nostdlib -mcpu=cortex-m4 -Wall -Werror -Wshadow $(addprefix -L ,$(CC_LIB))
+DEBUG_FLAGS = -g3 -ggdb
 #Target name with path
 TARGET = $(ROOT)/build/bin/$(PROJECT).elf
 
 #Makefile rules to build the project
-all: $(TARGET)
+all: clean $(TARGET) objsize
 
 $(TARGET):$(OBJ)
 	@echo Linking: $@
-	@$(CC) $(LDFLAGS) $^ -o $@
+	@$(CC) $(LDFLAGS) $(DEBUG_FLAGS) $^ -o $@
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo Compiling: $@
-	@$(CC) $(CFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $^ -o $@
 
+objsize: 
+	@echo Size of output file is:
+	@$(OBJSIZE) $(TARGET)
 clean:
 	@echo Removing build files
 	@rm -rf $(TARGET) $(OBJ)

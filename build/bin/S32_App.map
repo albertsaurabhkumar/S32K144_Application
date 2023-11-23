@@ -46,6 +46,24 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a ../build/obj/port.o
  .debug_macro   0x00000000      0x1df ../build/obj/port.o
  .debug_macro   0x00000000     0xdf8d ../build/obj/port.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .group         0x00000000        0xc ../build/obj/flash.o
+ .debug_macro   0x00000000      0xa5a ../build/obj/flash.o
+ .debug_macro   0x00000000       0x19 ../build/obj/flash.o
+ .debug_macro   0x00000000       0x22 ../build/obj/flash.o
+ .debug_macro   0x00000000       0x8e ../build/obj/flash.o
+ .debug_macro   0x00000000       0x51 ../build/obj/flash.o
+ .debug_macro   0x00000000      0x103 ../build/obj/flash.o
+ .debug_macro   0x00000000       0x6a ../build/obj/flash.o
+ .debug_macro   0x00000000      0x1df ../build/obj/flash.o
+ .debug_macro   0x00000000     0xdf8d ../build/obj/flash.o
  .group         0x00000000        0xc ../build/obj/gpio.o
  .group         0x00000000        0xc ../build/obj/gpio.o
  .group         0x00000000        0xc ../build/obj/gpio.o
@@ -64,6 +82,24 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a ../build/obj/gpio.o
  .debug_macro   0x00000000      0x1df ../build/obj/gpio.o
  .debug_macro   0x00000000     0xdf8d ../build/obj/gpio.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .group         0x00000000        0xc ../build/obj/wdog.o
+ .debug_macro   0x00000000      0xa5a ../build/obj/wdog.o
+ .debug_macro   0x00000000       0x19 ../build/obj/wdog.o
+ .debug_macro   0x00000000       0x22 ../build/obj/wdog.o
+ .debug_macro   0x00000000       0x8e ../build/obj/wdog.o
+ .debug_macro   0x00000000       0x51 ../build/obj/wdog.o
+ .debug_macro   0x00000000      0x103 ../build/obj/wdog.o
+ .debug_macro   0x00000000       0x6a ../build/obj/wdog.o
+ .debug_macro   0x00000000      0x1df ../build/obj/wdog.o
+ .debug_macro   0x00000000     0xdf8d ../build/obj/wdog.o
  .group         0x00000000        0xc ../build/obj/interrupt.o
  .group         0x00000000        0xc ../build/obj/interrupt.o
  .group         0x00000000        0xc ../build/obj/interrupt.o
@@ -104,9 +140,7 @@ Discarded input sections
 Memory Configuration
 
 Name             Origin             Length             Attributes
-FLASH1           0x00000000         0x00000400         xr
-FLASH_CONFIG     0x00000400         0x00000010         xr
-FLASH2           0x00000410         0x0007fbf0         xr
+FLASH            0x00014000         0x0006bffe         xr
 SRAM1            0x1fff8000         0x00008000         xrw
 SRAM2            0x20000000         0x00007000         xrw
 *default*        0x00000000         0xffffffff
@@ -116,219 +150,241 @@ Linker script and memory map
 LOAD ../build/obj/startup.o
 LOAD ../build/obj/main.o
 LOAD ../build/obj/port.o
+LOAD ../build/obj/flash.o
 LOAD ../build/obj/gpio.o
+LOAD ../build/obj/wdog.o
 LOAD ../build/obj/interrupt.o
 LOAD ../build/obj/clock.o
 
-.intvec         0x00000000      0x400
-                0x00000000                _intvec_start_ = .
+.intvec         0x00014000      0x400
+                0x00014000                _intvec_start_ = .
  *(.intvec)
- .intvec        0x00000000      0x400 ../build/obj/interrupt.o
-                0x00000000                vectorTable
-                0x00000400                . = ALIGN (0x4)
-                0x00000400                _intvec_end_ = .
+ .intvec        0x00014000      0x400 ../build/obj/interrupt.o
+                0x00014000                vectorTable
+                0x00014400                . = ALIGN (0x4)
+                0x00014400                _intvec_end_ = .
 
-.flashConfig    0x00000400        0x0
- *(.flashConfig)
-                0x00000400                . = ALIGN (0x4)
-
-.text           0x00000410      0x20c
-                0x00000410                _stext = .
+.text           0x00014400      0x3d4
+                0x00014400                _stext = .
  *(.text)
- .text          0x00000410       0x2c ../build/obj/startup.o
-                0x00000410                Reset_Handler
-                0x00000424                initData
-                0x00000430                initbss
- .text          0x0000043c       0xd4 ../build/obj/main.o
-                0x0000043c                WDOG_disable
-                0x00000468                delay
-                0x00000494                main
- .text          0x00000510       0x22 ../build/obj/port.o
-                0x00000510                PortPCR
- .text          0x00000532       0xc0 ../build/obj/gpio.o
-                0x00000532                ToggleGPIO
-                0x0000055a                SetGPIO
-                0x00000582                ClearGPIO
-                0x000005aa                DataDirectionGPIO
-                0x000005d2                DataOutGPIO
- .text          0x000005f2        0x6 ../build/obj/interrupt.o
-                0x000005f2                Reserved54_IRQHandler
-                0x000005f2                DebugMon_Handler
-                0x000005f2                Reserved88_IRQHandler
-                0x000005f2                CAN0_ORed_IRQHandler
-                0x000005f2                HardFault_Handler
-                0x000005f2                Reserved86_IRQHandler
-                0x000005f2                Reserved103_IRQHandler
-                0x000005f2                SysTick_Handler
-                0x000005f2                FTM2_Ovf_Reload_IRQHandler
-                0x000005f2                Reserved50_IRQHandler
-                0x000005f2                FTFC_Fault_IRQHandler
-                0x000005f2                FTM0_Ch6_Ch7_IRQHandler
-                0x000005f2                PendSV_Handler
-                0x000005f2                Reserved114_IRQHandler
-                0x000005f2                NMI_Handler
-                0x000005f2                Reserved89_IRQHandler
-                0x000005f2                ERM_double_fault_IRQHandler
-                0x000005f2                DMA2_IRQHandler
-                0x000005f2                Reserved59_IRQHandler
-                0x000005f2                LPIT0_Ch0_IRQHandler
-                0x000005f2                Reserved99_IRQHandler
-                0x000005f2                FTM3_Ch6_Ch7_IRQHandler
-                0x000005f2                CAN2_ORed_0_15_MB_IRQHandler
-                0x000005f2                LPIT0_Ch3_IRQHandler
-                0x000005f2                Reserved92_IRQHandler
-                0x000005f2                FTM0_Ch4_Ch5_IRQHandler
-                0x000005f2                CAN1_Error_IRQHandler
-                0x000005f2                FTM3_Ch0_Ch1_IRQHandler
-                0x000005f2                SWI_IRQHandler
-                0x000005f2                ADC0_IRQHandler
-                0x000005f2                FTM2_Ch4_Ch5_IRQHandler
-                0x000005f2                UsageFault_Handler
-                0x000005f2                FTM0_Ovf_Reload_IRQHandler
-                0x000005f2                DefaultISR
-                0x000005f2                DMA9_IRQHandler
-                0x000005f2                Reserved58_IRQHandler
-                0x000005f2                CAN1_ORed_0_15_MB_IRQHandler
-                0x000005f2                FTM1_Ch2_Ch3_IRQHandler
-                0x000005f2                DMA14_IRQHandler
-                0x000005f2                Reserved82_IRQHandler
-                0x000005f2                CAN0_ORed_16_31_MB_IRQHandler
-                0x000005f2                LPI2C0_Slave_IRQHandler
-                0x000005f2                Reserved71_IRQHandler
-                0x000005f2                PORTD_IRQHandler
-                0x000005f2                Reserved69_IRQHandler
-                0x000005f2                PORTB_IRQHandler
-                0x000005f2                Reserved70_IRQHandler
-                0x000005f2                ADC1_IRQHandler
-                0x000005f2                FTM2_Ch2_Ch3_IRQHandler
-                0x000005f2                DefaultHandler
-                0x000005f2                Reserved53_IRQHandler
-                0x000005f2                DMA5_IRQHandler
-                0x000005f2                RTC_IRQHandler
-                0x000005f2                PDB0_IRQHandler
-                0x000005f2                FTM2_Ch6_Ch7_IRQHandler
-                0x000005f2                FTM3_Ch2_Ch3_IRQHandler
-                0x000005f2                FTM2_Ch0_Ch1_IRQHandler
-                0x000005f2                LPSPI1_IRQHandler
-                0x000005f2                LPUART1_RxTx_IRQHandler
-                0x000005f2                RTC_Seconds_IRQHandler
-                0x000005f2                CAN2_ORed_IRQHandler
-                0x000005f2                Reserved72_IRQHandler
-                0x000005f2                Reserved110_IRQHandler
-                0x000005f2                DMA11_IRQHandler
-                0x000005f2                Reserved107_IRQHandler
-                0x000005f2                Read_Collision_IRQHandler
-                0x000005f2                CAN2_Error_IRQHandler
-                0x000005f2                FTFC_IRQHandler
-                0x000005f2                DMA7_IRQHandler
-                0x000005f2                FTM1_Ch6_Ch7_IRQHandler
-                0x000005f2                Reserved105_IRQHandler
-                0x000005f2                LPIT0_Ch1_IRQHandler
-                0x000005f2                FTM1_Ch4_Ch5_IRQHandler
-                0x000005f2                FTM3_Ovf_Reload_IRQHandler
-                0x000005f2                LPUART2_RxTx_IRQHandler
-                0x000005f2                LPSPI0_IRQHandler
-                0x000005f2                WDOG_EWM_IRQHandler
-                0x000005f2                MemManage_Handler
-                0x000005f2                Reserved90_IRQHandler
-                0x000005f2                Reserved83_IRQHandler
-                0x000005f2                FTM0_Fault_IRQHandler
-                0x000005f2                Reserved48_IRQHandler
-                0x000005f2                SVC_Handler
-                0x000005f2                ERM_single_fault_IRQHandler
-                0x000005f2                FTM2_Fault_IRQHandler
-                0x000005f2                FTM0_Ch2_Ch3_IRQHandler
-                0x000005f2                DMA13_IRQHandler
-                0x000005f2                FTM0_Ch0_Ch1_IRQHandler
-                0x000005f2                FTM3_Fault_IRQHandler
-                0x000005f2                RCM_IRQHandler
-                0x000005f2                DMA3_IRQHandler
-                0x000005f2                Reserved100_IRQHandler
-                0x000005f2                DMA0_IRQHandler
-                0x000005f2                Reserved91_IRQHandler
-                0x000005f2                CAN1_ORed_IRQHandler
-                0x000005f2                DMA15_IRQHandler
-                0x000005f2                SCG_IRQHandler
-                0x000005f2                PDB1_IRQHandler
-                0x000005f2                Reserved81_IRQHandler
-                0x000005f2                Reserved46_IRQHandler
-                0x000005f2                Reserved45_IRQHandler
-                0x000005f2                CAN0_Error_IRQHandler
-                0x000005f2                Reserved112_IRQHandler
-                0x000005f2                LPI2C0_Master_IRQHandler
-                0x000005f2                DMA4_IRQHandler
-                0x000005f2                FTM1_Fault_IRQHandler
-                0x000005f2                Reserved106_IRQHandler
-                0x000005f2                DMA_Error_IRQHandler
-                0x000005f2                LVD_LVW_IRQHandler
-                0x000005f2                LPIT0_Ch2_IRQHandler
-                0x000005f2                PORTA_IRQHandler
-                0x000005f2                MCM_IRQHandler
-                0x000005f2                LPSPI2_IRQHandler
-                0x000005f2                DMA12_IRQHandler
-                0x000005f2                FTM3_Ch4_Ch5_IRQHandler
-                0x000005f2                CAN0_ORed_0_15_MB_IRQHandler
-                0x000005f2                LPUART0_RxTx_IRQHandler
-                0x000005f2                PORTE_IRQHandler
-                0x000005f2                LPTMR0_IRQHandler
-                0x000005f2                BusFault_Handler
-                0x000005f2                Reserved87_IRQHandler
-                0x000005f2                FTM1_Ovf_Reload_IRQHandler
-                0x000005f2                DMA8_IRQHandler
-                0x000005f2                Reserved93_IRQHandler
-                0x000005f2                DMA10_IRQHandler
-                0x000005f2                CAN0_Wake_Up_IRQHandler
-                0x000005f2                CMP0_IRQHandler
-                0x000005f2                Reserved52_IRQHandler
-                0x000005f2                PORTC_IRQHandler
-                0x000005f2                DMA6_IRQHandler
-                0x000005f2                FTM1_Ch0_Ch1_IRQHandler
-                0x000005f2                FLEXIO_IRQHandler
-                0x000005f2                DMA1_IRQHandler
-                0x000005f2                Reserved113_IRQHandler
- .text          0x000005f8       0x24 ../build/obj/clock.o
-                0x000005f8                initClk
+ .text          0x00014400       0x2c ../build/obj/startup.o
+                0x00014400                Reset_Handler
+                0x00014414                initData
+                0x00014420                initbss
+ .text          0x0001442c       0x64 ../build/obj/main.o
+                0x0001442c                delay
+                0x00014458                main
+ .text          0x00014490       0x22 ../build/obj/port.o
+                0x00014490                PortPCR
+ *fill*         0x000144b2        0x2 
+ .text          0x000144b4      0x1e0 ../build/obj/flash.o
+                0x000144b4                CommandSequence
+                0x000144f0                Read1sBlock
+                0x0001450c                Read1sSection
+                0x00014528                ProgramCheck
+                0x00014544                ProgramPhrase
+                0x00014560                EraseFlashBlock
+                0x0001457c                EraseFlashSector
+                0x00014598                ProgramSection
+                0x000145b4                Read1sAllBlocks
+                0x000145d0                ReadOnce
+                0x000145ec                ProgramOnce
+                0x00014608                EraseAllBlocks
+                0x00014624                VerifyBackdoorAccessKey
+                0x00014640                EraseAllBlocksUnsecure
+                0x0001465c                ProgramPartition
+                0x00014678                SetFlexRAM
+ .text          0x00014694       0xc0 ../build/obj/gpio.o
+                0x00014694                ToggleGPIO
+                0x000146bc                SetGPIO
+                0x000146e4                ClearGPIO
+                0x0001470c                DataDirectionGPIO
+                0x00014734                DataOutGPIO
+ .text          0x00014754       0x54 ../build/obj/wdog.o
+                0x00014754                DisableWDOG
+                0x00014780                RefreshWDOG
+                0x0001479c                CongiWDOG
+ .text          0x000147a8        0x6 ../build/obj/interrupt.o
+                0x000147a8                Reserved54_IRQHandler
+                0x000147a8                DebugMon_Handler
+                0x000147a8                Reserved88_IRQHandler
+                0x000147a8                CAN0_ORed_IRQHandler
+                0x000147a8                HardFault_Handler
+                0x000147a8                Reserved86_IRQHandler
+                0x000147a8                Reserved103_IRQHandler
+                0x000147a8                SysTick_Handler
+                0x000147a8                FTM2_Ovf_Reload_IRQHandler
+                0x000147a8                Reserved50_IRQHandler
+                0x000147a8                FTFC_Fault_IRQHandler
+                0x000147a8                FTM0_Ch6_Ch7_IRQHandler
+                0x000147a8                PendSV_Handler
+                0x000147a8                Reserved114_IRQHandler
+                0x000147a8                NMI_Handler
+                0x000147a8                Reserved89_IRQHandler
+                0x000147a8                ERM_double_fault_IRQHandler
+                0x000147a8                DMA2_IRQHandler
+                0x000147a8                Reserved59_IRQHandler
+                0x000147a8                LPIT0_Ch0_IRQHandler
+                0x000147a8                Reserved99_IRQHandler
+                0x000147a8                FTM3_Ch6_Ch7_IRQHandler
+                0x000147a8                CAN2_ORed_0_15_MB_IRQHandler
+                0x000147a8                LPIT0_Ch3_IRQHandler
+                0x000147a8                Reserved92_IRQHandler
+                0x000147a8                FTM0_Ch4_Ch5_IRQHandler
+                0x000147a8                CAN1_Error_IRQHandler
+                0x000147a8                FTM3_Ch0_Ch1_IRQHandler
+                0x000147a8                SWI_IRQHandler
+                0x000147a8                ADC0_IRQHandler
+                0x000147a8                FTM2_Ch4_Ch5_IRQHandler
+                0x000147a8                UsageFault_Handler
+                0x000147a8                FTM0_Ovf_Reload_IRQHandler
+                0x000147a8                DefaultISR
+                0x000147a8                DMA9_IRQHandler
+                0x000147a8                Reserved58_IRQHandler
+                0x000147a8                CAN1_ORed_0_15_MB_IRQHandler
+                0x000147a8                FTM1_Ch2_Ch3_IRQHandler
+                0x000147a8                DMA14_IRQHandler
+                0x000147a8                Reserved82_IRQHandler
+                0x000147a8                CAN0_ORed_16_31_MB_IRQHandler
+                0x000147a8                LPI2C0_Slave_IRQHandler
+                0x000147a8                Reserved71_IRQHandler
+                0x000147a8                PORTD_IRQHandler
+                0x000147a8                Reserved69_IRQHandler
+                0x000147a8                PORTB_IRQHandler
+                0x000147a8                Reserved70_IRQHandler
+                0x000147a8                ADC1_IRQHandler
+                0x000147a8                FTM2_Ch2_Ch3_IRQHandler
+                0x000147a8                DefaultHandler
+                0x000147a8                Reserved53_IRQHandler
+                0x000147a8                DMA5_IRQHandler
+                0x000147a8                RTC_IRQHandler
+                0x000147a8                PDB0_IRQHandler
+                0x000147a8                FTM2_Ch6_Ch7_IRQHandler
+                0x000147a8                FTM3_Ch2_Ch3_IRQHandler
+                0x000147a8                FTM2_Ch0_Ch1_IRQHandler
+                0x000147a8                LPSPI1_IRQHandler
+                0x000147a8                LPUART1_RxTx_IRQHandler
+                0x000147a8                RTC_Seconds_IRQHandler
+                0x000147a8                CAN2_ORed_IRQHandler
+                0x000147a8                Reserved72_IRQHandler
+                0x000147a8                Reserved110_IRQHandler
+                0x000147a8                DMA11_IRQHandler
+                0x000147a8                Reserved107_IRQHandler
+                0x000147a8                Read_Collision_IRQHandler
+                0x000147a8                CAN2_Error_IRQHandler
+                0x000147a8                FTFC_IRQHandler
+                0x000147a8                DMA7_IRQHandler
+                0x000147a8                FTM1_Ch6_Ch7_IRQHandler
+                0x000147a8                Reserved105_IRQHandler
+                0x000147a8                LPIT0_Ch1_IRQHandler
+                0x000147a8                FTM1_Ch4_Ch5_IRQHandler
+                0x000147a8                FTM3_Ovf_Reload_IRQHandler
+                0x000147a8                LPUART2_RxTx_IRQHandler
+                0x000147a8                LPSPI0_IRQHandler
+                0x000147a8                WDOG_EWM_IRQHandler
+                0x000147a8                MemManage_Handler
+                0x000147a8                Reserved90_IRQHandler
+                0x000147a8                Reserved83_IRQHandler
+                0x000147a8                FTM0_Fault_IRQHandler
+                0x000147a8                Reserved48_IRQHandler
+                0x000147a8                SVC_Handler
+                0x000147a8                ERM_single_fault_IRQHandler
+                0x000147a8                FTM2_Fault_IRQHandler
+                0x000147a8                FTM0_Ch2_Ch3_IRQHandler
+                0x000147a8                DMA13_IRQHandler
+                0x000147a8                FTM0_Ch0_Ch1_IRQHandler
+                0x000147a8                FTM3_Fault_IRQHandler
+                0x000147a8                RCM_IRQHandler
+                0x000147a8                DMA3_IRQHandler
+                0x000147a8                Reserved100_IRQHandler
+                0x000147a8                DMA0_IRQHandler
+                0x000147a8                Reserved91_IRQHandler
+                0x000147a8                CAN1_ORed_IRQHandler
+                0x000147a8                DMA15_IRQHandler
+                0x000147a8                SCG_IRQHandler
+                0x000147a8                PDB1_IRQHandler
+                0x000147a8                Reserved81_IRQHandler
+                0x000147a8                Reserved46_IRQHandler
+                0x000147a8                Reserved45_IRQHandler
+                0x000147a8                CAN0_Error_IRQHandler
+                0x000147a8                Reserved112_IRQHandler
+                0x000147a8                LPI2C0_Master_IRQHandler
+                0x000147a8                DMA4_IRQHandler
+                0x000147a8                FTM1_Fault_IRQHandler
+                0x000147a8                Reserved106_IRQHandler
+                0x000147a8                DMA_Error_IRQHandler
+                0x000147a8                LVD_LVW_IRQHandler
+                0x000147a8                LPIT0_Ch2_IRQHandler
+                0x000147a8                PORTA_IRQHandler
+                0x000147a8                MCM_IRQHandler
+                0x000147a8                LPSPI2_IRQHandler
+                0x000147a8                DMA12_IRQHandler
+                0x000147a8                FTM3_Ch4_Ch5_IRQHandler
+                0x000147a8                CAN0_ORed_0_15_MB_IRQHandler
+                0x000147a8                LPUART0_RxTx_IRQHandler
+                0x000147a8                PORTE_IRQHandler
+                0x000147a8                LPTMR0_IRQHandler
+                0x000147a8                BusFault_Handler
+                0x000147a8                Reserved87_IRQHandler
+                0x000147a8                FTM1_Ovf_Reload_IRQHandler
+                0x000147a8                DMA8_IRQHandler
+                0x000147a8                Reserved93_IRQHandler
+                0x000147a8                DMA10_IRQHandler
+                0x000147a8                CAN0_Wake_Up_IRQHandler
+                0x000147a8                CMP0_IRQHandler
+                0x000147a8                Reserved52_IRQHandler
+                0x000147a8                PORTC_IRQHandler
+                0x000147a8                DMA6_IRQHandler
+                0x000147a8                FTM1_Ch0_Ch1_IRQHandler
+                0x000147a8                FLEXIO_IRQHandler
+                0x000147a8                DMA1_IRQHandler
+                0x000147a8                Reserved113_IRQHandler
+ *fill*         0x000147ae        0x2 
+ .text          0x000147b0       0x24 ../build/obj/clock.o
+                0x000147b0                initClk
  *(.text*)
  *(.rodata)
  *(.rodata*)
  *(.glue_7)
- .glue_7        0x0000061c        0x0 linker stubs
+ .glue_7        0x000147d4        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0000061c        0x0 linker stubs
+ .glue_7t       0x000147d4        0x0 linker stubs
  *(.eh_frame)
  *(.init)
  *(.fini)
-                0x0000061c                . = ALIGN (0x4)
-                0x0000061c                _etext = .
+                0x000147d4                . = ALIGN (0x4)
+                0x000147d4                _etext = .
 
-.vfp11_veneer   0x0000061c        0x0
- .vfp11_veneer  0x0000061c        0x0 linker stubs
+.vfp11_veneer   0x000147d4        0x0
+ .vfp11_veneer  0x000147d4        0x0 linker stubs
 
-.v4_bx          0x0000061c        0x0
- .v4_bx         0x0000061c        0x0 linker stubs
+.v4_bx          0x000147d4        0x0
+ .v4_bx         0x000147d4        0x0 linker stubs
 
-.iplt           0x0000061c        0x0
- .iplt          0x0000061c        0x0 ../build/obj/startup.o
+.iplt           0x000147d4        0x0
+ .iplt          0x000147d4        0x0 ../build/obj/startup.o
 
-.rel.dyn        0x0000061c        0x0
- .rel.iplt      0x0000061c        0x0 ../build/obj/startup.o
+.rel.dyn        0x000147d4        0x0
+ .rel.iplt      0x000147d4        0x0 ../build/obj/startup.o
 
-.data           0x1fff8000        0x0 load address 0x0000061c
+.data           0x1fff8000        0x0 load address 0x000147d4
                 0x1fff8000                _sdata_ram = .
  *(.data)
  .data          0x1fff8000        0x0 ../build/obj/startup.o
  .data          0x1fff8000        0x0 ../build/obj/main.o
  .data          0x1fff8000        0x0 ../build/obj/port.o
+ .data          0x1fff8000        0x0 ../build/obj/flash.o
  .data          0x1fff8000        0x0 ../build/obj/gpio.o
+ .data          0x1fff8000        0x0 ../build/obj/wdog.o
  .data          0x1fff8000        0x0 ../build/obj/interrupt.o
  .data          0x1fff8000        0x0 ../build/obj/clock.o
                 0x1fff8000                . = ALIGN (0x4)
                 0x1fff8000                _edata_ram = .
 
-.igot.plt       0x1fff8000        0x0 load address 0x0000061c
+.igot.plt       0x1fff8000        0x0 load address 0x000147d4
  .igot.plt      0x1fff8000        0x0 ../build/obj/startup.o
 
-.bss            0x1fff8000        0x8 load address 0x0000061c
+.bss            0x1fff8000        0x8 load address 0x000147d4
                 0x1fff8000                _bss_start_ = .
  *(.bss)
  .bss           0x1fff8000        0x0 ../build/obj/startup.o
@@ -336,7 +392,9 @@ LOAD ../build/obj/clock.o
                 0x1fff8000                dlyCnt
                 0x1fff8004                counter
  .bss           0x1fff8008        0x0 ../build/obj/port.o
+ .bss           0x1fff8008        0x0 ../build/obj/flash.o
  .bss           0x1fff8008        0x0 ../build/obj/gpio.o
+ .bss           0x1fff8008        0x0 ../build/obj/wdog.o
  .bss           0x1fff8008        0x0 ../build/obj/interrupt.o
  .bss           0x1fff8008        0x0 ../build/obj/clock.o
  *(.bss*)
@@ -347,23 +405,27 @@ LOAD ../build/obj/clock.o
 OUTPUT(../build/bin/S32_App.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000      0xb3c
+.debug_info     0x00000000      0xed1
  .debug_info    0x00000000       0xa6 ../build/obj/startup.o
- .debug_info    0x000000a6      0x37d ../build/obj/main.o
- .debug_info    0x00000423      0x28b ../build/obj/port.o
- .debug_info    0x000006ae      0x2f7 ../build/obj/gpio.o
- .debug_info    0x000009a5       0xbc ../build/obj/interrupt.o
- .debug_info    0x00000a61       0xdb ../build/obj/clock.o
+ .debug_info    0x000000a6      0x318 ../build/obj/main.o
+ .debug_info    0x000003be      0x28b ../build/obj/port.o
+ .debug_info    0x00000649      0x2e8 ../build/obj/flash.o
+ .debug_info    0x00000931      0x2f7 ../build/obj/gpio.o
+ .debug_info    0x00000c28      0x112 ../build/obj/wdog.o
+ .debug_info    0x00000d3a       0xbc ../build/obj/interrupt.o
+ .debug_info    0x00000df6       0xdb ../build/obj/clock.o
 
-.debug_abbrev   0x00000000      0x497
+.debug_abbrev   0x00000000      0x5d1
  .debug_abbrev  0x00000000       0x5d ../build/obj/startup.o
- .debug_abbrev  0x0000005d      0x12e ../build/obj/main.o
- .debug_abbrev  0x0000018b       0xff ../build/obj/port.o
- .debug_abbrev  0x0000028a       0xf6 ../build/obj/gpio.o
- .debug_abbrev  0x00000380       0x7b ../build/obj/interrupt.o
- .debug_abbrev  0x000003fb       0x9c ../build/obj/clock.o
+ .debug_abbrev  0x0000005d      0x112 ../build/obj/main.o
+ .debug_abbrev  0x0000016f       0xff ../build/obj/port.o
+ .debug_abbrev  0x0000026e       0xbb ../build/obj/flash.o
+ .debug_abbrev  0x00000329       0xf6 ../build/obj/gpio.o
+ .debug_abbrev  0x0000041f       0x9b ../build/obj/wdog.o
+ .debug_abbrev  0x000004ba       0x7b ../build/obj/interrupt.o
+ .debug_abbrev  0x00000535       0x9c ../build/obj/clock.o
 
-.debug_aranges  0x00000000       0xc0
+.debug_aranges  0x00000000      0x100
  .debug_aranges
                 0x00000000       0x20 ../build/obj/startup.o
  .debug_aranges
@@ -371,13 +433,17 @@ LOAD linker stubs
  .debug_aranges
                 0x00000040       0x20 ../build/obj/port.o
  .debug_aranges
-                0x00000060       0x20 ../build/obj/gpio.o
+                0x00000060       0x20 ../build/obj/flash.o
  .debug_aranges
-                0x00000080       0x20 ../build/obj/interrupt.o
+                0x00000080       0x20 ../build/obj/gpio.o
  .debug_aranges
-                0x000000a0       0x20 ../build/obj/clock.o
+                0x000000a0       0x20 ../build/obj/wdog.o
+ .debug_aranges
+                0x000000c0       0x20 ../build/obj/interrupt.o
+ .debug_aranges
+                0x000000e0       0x20 ../build/obj/clock.o
 
-.debug_macro    0x00000000     0xf14d
+.debug_macro    0x00000000     0xf24f
  .debug_macro   0x00000000       0x7e ../build/obj/startup.o
  .debug_macro   0x0000007e      0xa5a ../build/obj/startup.o
  .debug_macro   0x00000ad8       0x19 ../build/obj/startup.o
@@ -388,32 +454,40 @@ LOAD linker stubs
  .debug_macro   0x00000cf5       0x6a ../build/obj/startup.o
  .debug_macro   0x00000d5f      0x1df ../build/obj/startup.o
  .debug_macro   0x00000f3e     0xdf8d ../build/obj/startup.o
- .debug_macro   0x0000eecb       0x96 ../build/obj/main.o
- .debug_macro   0x0000ef61       0x84 ../build/obj/port.o
- .debug_macro   0x0000efe5       0x76 ../build/obj/gpio.o
- .debug_macro   0x0000f05b       0x76 ../build/obj/interrupt.o
- .debug_macro   0x0000f0d1       0x7c ../build/obj/clock.o
+ .debug_macro   0x0000eecb       0xa0 ../build/obj/main.o
+ .debug_macro   0x0000ef6b       0x84 ../build/obj/port.o
+ .debug_macro   0x0000efef       0x7c ../build/obj/flash.o
+ .debug_macro   0x0000f06b       0x76 ../build/obj/gpio.o
+ .debug_macro   0x0000f0e1       0x7c ../build/obj/wdog.o
+ .debug_macro   0x0000f15d       0x76 ../build/obj/interrupt.o
+ .debug_macro   0x0000f1d3       0x7c ../build/obj/clock.o
 
-.debug_line     0x00000000      0xbc2
+.debug_line     0x00000000     0x1071
  .debug_line    0x00000000      0x1fb ../build/obj/startup.o
- .debug_line    0x000001fb      0x240 ../build/obj/main.o
- .debug_line    0x0000043b      0x1d7 ../build/obj/port.o
- .debug_line    0x00000612      0x206 ../build/obj/gpio.o
- .debug_line    0x00000818      0x1d3 ../build/obj/interrupt.o
- .debug_line    0x000009eb      0x1d7 ../build/obj/clock.o
+ .debug_line    0x000001fb      0x218 ../build/obj/main.o
+ .debug_line    0x00000413      0x1d7 ../build/obj/port.o
+ .debug_line    0x000005ea      0x2ec ../build/obj/flash.o
+ .debug_line    0x000008d6      0x206 ../build/obj/gpio.o
+ .debug_line    0x00000adc      0x1eb ../build/obj/wdog.o
+ .debug_line    0x00000cc7      0x1d3 ../build/obj/interrupt.o
+ .debug_line    0x00000e9a      0x1d7 ../build/obj/clock.o
 
-.debug_str      0x00000000    0x5d8d8
+.debug_str      0x00000000    0x5da75
  .debug_str     0x00000000    0x5d667 ../build/obj/startup.o
                               0x5d7c2 (size before relaxing)
- .debug_str     0x0005d667      0x194 ../build/obj/main.o
-                              0x5d933 (size before relaxing)
- .debug_str     0x0005d7fb       0x2c ../build/obj/port.o
+ .debug_str     0x0005d667      0x17f ../build/obj/main.o
+                              0x5d91e (size before relaxing)
+ .debug_str     0x0005d7e6       0x2c ../build/obj/port.o
                               0x5d8de (size before relaxing)
- .debug_str     0x0005d827       0x56 ../build/obj/gpio.o
+ .debug_str     0x0005d812      0x16e ../build/obj/flash.o
+                              0x5d924 (size before relaxing)
+ .debug_str     0x0005d980       0x56 ../build/obj/gpio.o
                               0x5d8e9 (size before relaxing)
- .debug_str     0x0005d87d       0x32 ../build/obj/interrupt.o
+ .debug_str     0x0005d9d6       0x44 ../build/obj/wdog.o
+                              0x5d7ee (size before relaxing)
+ .debug_str     0x0005da1a       0x32 ../build/obj/interrupt.o
                               0x5d7d4 (size before relaxing)
- .debug_str     0x0005d8af       0x29 ../build/obj/clock.o
+ .debug_str     0x0005da4c       0x29 ../build/obj/clock.o
                               0x5d7d6 (size before relaxing)
 
 .comment        0x00000000       0x49
@@ -421,7 +495,9 @@ LOAD linker stubs
                                  0x4a (size before relaxing)
  .comment       0x00000049       0x4a ../build/obj/main.o
  .comment       0x00000049       0x4a ../build/obj/port.o
+ .comment       0x00000049       0x4a ../build/obj/flash.o
  .comment       0x00000049       0x4a ../build/obj/gpio.o
+ .comment       0x00000049       0x4a ../build/obj/wdog.o
  .comment       0x00000049       0x4a ../build/obj/interrupt.o
  .comment       0x00000049       0x4a ../build/obj/clock.o
 
@@ -434,16 +510,22 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000005c       0x2e ../build/obj/port.o
  .ARM.attributes
-                0x0000008a       0x2e ../build/obj/gpio.o
+                0x0000008a       0x2e ../build/obj/flash.o
  .ARM.attributes
-                0x000000b8       0x2e ../build/obj/interrupt.o
+                0x000000b8       0x2e ../build/obj/gpio.o
  .ARM.attributes
-                0x000000e6       0x2e ../build/obj/clock.o
+                0x000000e6       0x2e ../build/obj/wdog.o
+ .ARM.attributes
+                0x00000114       0x2e ../build/obj/interrupt.o
+ .ARM.attributes
+                0x00000142       0x2e ../build/obj/clock.o
 
-.debug_frame    0x00000000      0x248
+.debug_frame    0x00000000      0x4a4
  .debug_frame   0x00000000       0x6c ../build/obj/startup.o
- .debug_frame   0x0000006c       0x74 ../build/obj/main.o
- .debug_frame   0x000000e0       0x38 ../build/obj/port.o
- .debug_frame   0x00000118       0xd8 ../build/obj/gpio.o
- .debug_frame   0x000001f0       0x28 ../build/obj/interrupt.o
- .debug_frame   0x00000218       0x30 ../build/obj/clock.o
+ .debug_frame   0x0000006c       0x54 ../build/obj/main.o
+ .debug_frame   0x000000c0       0x38 ../build/obj/port.o
+ .debug_frame   0x000000f8      0x20c ../build/obj/flash.o
+ .debug_frame   0x00000304       0xd8 ../build/obj/gpio.o
+ .debug_frame   0x000003dc       0x70 ../build/obj/wdog.o
+ .debug_frame   0x0000044c       0x28 ../build/obj/interrupt.o
+ .debug_frame   0x00000474       0x30 ../build/obj/clock.o

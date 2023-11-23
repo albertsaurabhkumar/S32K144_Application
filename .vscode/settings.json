@@ -23,7 +23,8 @@
         "port.h": "c",
         "clock.h": "c",
         "main.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "wdog.h": "c"
     },
     "cortex-debug.liveWatchRefreshRate": 250,
     "cortex-debug.JLinkGDBServerPath.windows": "C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe",
