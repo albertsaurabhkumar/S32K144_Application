@@ -69,7 +69,7 @@ SECTIONS
     __VECTOR_TABLE = .;
     __interrupts_start__ = .;
     . = ALIGN(4);
-    KEEP(*(.isr_vector))     /* Startup code */
+    KEEP(*(.intvec))     /* Startup code */
     __interrupts_end__ = .;
     . = ALIGN(4);
   } > m_interrupts

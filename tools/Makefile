@@ -38,12 +38,12 @@ CFLAGS = -c -mthumb -mcpu=cortex-m4 -Wall -std=gnu11 $(addprefix -I ,$(INC_DIR))
 LDFLAGS = -T S32_App.ld -Wl,-Map=$(BIN_DIR)/S32_App.map -nostdlib -mcpu=cortex-m4 -Wall -Werror -Wshadow $(addprefix -L ,$(CC_LIB))
 DEBUG_FLAGS = -g3 -ggdb
 #Target name with path
-TARGET = $(ROOT)/build/bin/$(PROJECT).elf
+TARGET = $(ROOT)/build/bin/$(PROJECT)
 
 #Makefile rules to build the project
-all: clean $(TARGET) objsize
+all: $(TARGET).elf objcopytobin objsize
 
-$(TARGET):$(OBJ)
+$(TARGET).elf:$(OBJ)
 	@echo Linking: $@
 	@$(CC) $(LDFLAGS) $(DEBUG_FLAGS) $^ -o $@
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -52,10 +52,15 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 objsize: 
 	@echo Size of output file is:
-	@$(OBJSIZE) $(TARGET)
+	@$(OBJSIZE) $(TARGET).elf
+
+objcopytobin:
+	@echo Generating .bin file....
+	@$(OBJCOPY) -O ihex $(TARGET).elf $(TARGET).hex
+
 clean:
 	@echo Removing build files
-	@rm -rf $(TARGET) $(OBJ)
+	@rm -rf $(ROOT)/build/bin/* $(OBJ)
 	@echo Done...
 
 .PHONY: all clean

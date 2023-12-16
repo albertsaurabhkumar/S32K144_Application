@@ -7,11 +7,10 @@
 **
 ***************************************************/
 
-ENTRY(Reset_Handler)
-
 MEMORY
 {
-    FLASH(rx): ORIGIN = 0X00014000, LENGTH = 0X0007FBF0 /*432 KB of Pflash available for the application and 80KB assigned to bootloader*/
+    VECTAB(rx): ORIGIN = 0x00008400, LENGTH = 0x00000400    /*1KB of is given as gap to avoid overlapping*/    /**FConfig(rx): ORIGIN = 0x00000400, LENGTH = 0x00000010**/
+    FLASH(rx): ORIGIN = 0x00008800, LENGTH = 0x000777FF     /*478KB ie (777FF+400 bytes) of Pflash available for the application and 80KB assigned to bootloader*/
     SRAM1(rwx): ORIGIN = 0x1FFF8000, LENGTH = 0x00008000
     SRAM2(rwx): ORIGIN = 0x20000000, LENGTH = 0x00007000
 }
@@ -24,8 +23,8 @@ SECTIONS
     *(.intvec)
     . = ALIGN(4);
     _intvec_end_ = .;
-    } > FLASH
-
+    } > VECTAB
+    
     .text :
     {
     _stext = .;

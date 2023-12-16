@@ -5,16 +5,36 @@
 void DefaultHandler(void) {
     while(1); /* Never returns from here */
 }
+void NMI_Handler(void) {
+    while(1); /* Never returns from here */
+}
 
-void NMI_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));
-void HardFault_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));
-void MemManage_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));
-void BusFault_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));
-void UsageFault_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));
-void SVC_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));  
-void DebugMon_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));  
-void PendSV_Handler(void) __attribute__ ((weak, alias("DefaultHandler")));
-void SysTick_Handler(void) __attribute__ ((weak, alias("DefaultHandler"))); 
+void HardFault_Handler(void) {
+    while(1); /* Never returns from here */
+}
+void MemManage_Handler(void) {
+    while(1); /* Never returns from here */
+}
+void BusFault_Handler(void) {
+    while(1); /* Never returns from here */
+}
+void UsageFault_Handler(void) {
+    while(1); /* Never returns from here */
+}
+void SVC_Handler(void) {
+    while(1); /* Never returns from here */
+}  
+
+void DebugMon_Handler(void) {
+    while(1); /* Never returns from here */
+}  
+void PendSV_Handler(void) {
+    while(1); /* Never returns from here */
+}
+void SysTick_Handler(void) {
+    while(1); /* Never returns from here */
+}
+
 void DMA0_IRQHandler(void) __attribute__ ((weak, alias("DefaultHandler")));   
 void DMA1_IRQHandler(void) __attribute__ ((weak, alias("DefaultHandler")));   
 void DMA2_IRQHandler(void) __attribute__ ((weak, alias("DefaultHandler"))); 

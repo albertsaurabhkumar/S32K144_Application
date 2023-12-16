@@ -12,9 +12,18 @@
 #include "interrupt.h"
 #include "startup.h"
 
+
+uint32_t flashConfig[] __attribute__ ((section (".flashConfig"))) = {
+ (uint32_t) 0xFFFFFFFF,
+ (uint32_t) 0xFFFFFFFF,
+ (uint32_t) 0xFFFFFFFF,
+ (uint32_t) 0xFFFFFFFF
+};
+
 void Reset_Handler(){
     initData();
     initbss();
+    //S32_SCB->VTOR = (uint32_t)(0x8400);
     main();
     /* Never returns back to here */
 }

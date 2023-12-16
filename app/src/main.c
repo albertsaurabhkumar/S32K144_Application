@@ -19,7 +19,6 @@
 
 volatile uint32_t dlyCnt;
 volatile uint32_t counter;
-//volatile uint32_t a=10;
 
 void delay(uint32_t a) {
   while(a>0){
@@ -29,16 +28,14 @@ void delay(uint32_t a) {
 }
 
 int main(void) {
-  initClk();
+/*   initClk();
   DisableWDOG();
-
-  PortPCR(PORTA,PIN6);
-  DataDirectionGPIO(PTA,PIN6);
-
+  PortPCR(PORTA,PIN11);
+  DataDirectionGPIO(PTA,PIN11); */
   while(1)
   {
-    ToggleGPIO(PTA,PIN6);
-    delay(720);
+    ToggleGPIO(PTA,PIN11);
+    delay(150000);
     // Never returns from this loop 
   }
   return 0;
