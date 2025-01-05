@@ -13,6 +13,23 @@
             "showDevDebugOutput": "none",
             "servertype": "jlink",
             "svdFile": "${workspaceFolder}/tools/S32K144.svd"
+        },
+        {
+            "cwd": "${workspaceFolder}",
+            "executable": "./build/bin/S32_App.elf",
+            "name": "OCDDebug_App",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "S32K144",
+            "interface": "swd",
+            "runToEntryPoint": "Reset_Handler",
+            "showDevDebugOutput": "none",
+            "servertype": "openocd",
+            "configFiles": [
+                "${workspaceFolder}/tools/openocd/openocd/scripts/interface/stlink.cfg",
+                "${workspaceFolder}/tools/openocd/openocd/scripts/target/s32k.cfg"
+            ],
+            "svdFile": "${workspaceFolder}/tools/S32K144.svd"
         }
     ]
 }
